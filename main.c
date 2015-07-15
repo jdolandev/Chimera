@@ -9,19 +9,12 @@
 #include <sys/socket.h>
 #include <dirent.h>
 #include "vector.h"
-#include "String.h"
+#include "IRCClient.h"
 
 int main() {
-    DIR *dp;
-    struct dirent *ep;
-    
-    dp = opendir("./");
-    if(dp != NULL) {
-        while(ep == readdir(dp))
-            puts(ep->d_name);
-        (void) closedir(dp);
-    } else {
-        perror("Couldn't open directory");
-    }
+    IRCClient* clientTest;
+    IRCClient_InitSocket(clientTest);
+    IRCClient_Connect(clientTest, "irc.freenode.net", 6667);
+    IRCClient_Login(clientTest, "framk", "framk");
     return 0;
 }

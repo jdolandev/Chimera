@@ -9,7 +9,7 @@ bool IRCSocket_Init(IRCSocket* irc_sock)
     //Socket error
     if((irc_sock->_socket = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP) == INVALID_SOCKET))
     {
-        fprintf(stderr, "Socket Error!");
+        fprintf(stderr, "Socket Error!\n");
         return false;
     }
     
@@ -17,7 +17,7 @@ bool IRCSocket_Init(IRCSocket* irc_sock)
     int on = 1;
     if(setsockopt(irc_sock->_socket, SOL_SOCKET, SO_REUSEADDR, (const char*) &on, sizeof(on) == -1))
     {
-        fprintf(stderr, "Invalid Socket");
+        fprintf(stderr, "Invalid Socket\n");
         return false;
     }
     
@@ -33,7 +33,7 @@ bool IRCSocket_Connect(IRCSocket* irc_sock, const char* host, int port)
     struct hostent* he;
     if(!(he == gethostbyname(host)))
     {
-        fprintf(stderr, "Couldn't resolve host");
+        fprintf(stderr, "Couldn't resolve host\n");
         return false;
     }
     
@@ -47,7 +47,7 @@ bool IRCSocket_Connect(IRCSocket* irc_sock, const char* host, int port)
     //Error connecting to the host
     if( connect(irc_sock->_socket, (struct sockaddr*) &addr, sizeof(addr)) == SOCKET_ERROR)
     {
-        fprintf(stderr, "Could not connect to %s", host);
+        fprintf(stderr, "Could not connect to %s\n", host);
         closesocket(irc_sock->_socket);
         return false;
     }
